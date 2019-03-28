@@ -17,6 +17,7 @@ const knexLogger  = require('knex-logger');
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
 
+// app.use('/users', userRoutes(knex))
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -52,6 +53,20 @@ app.get("/login", (req, res) => {
 app.get("/games", (req, res) => {
   res.render("games_index");
 })
+
+app.post("/login", (req, res) => {
+
+  knex('players')
+.insert(
+    { name: req.body.username})
+.asCallback((err) => {
+    res.redirect("/games");
+  if(err){
+      console.log(err);
+  }
+}
+)});
+
 
 app.listen(PORT, () => {
   console.log("Example app listening on port " + PORT);
