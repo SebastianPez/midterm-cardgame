@@ -1,7 +1,39 @@
-body {
-  background-color: #EEE;
-
-  h1 {
-    color: #244751;
-  }
+.body {
+  background-color: #D3E298;
 }
+
+body h1 {
+  color: #244751;
+  text-align: center;
+}
+
+container {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  width: 99%;
+  height: 100px;
+}
+
+.score-board {
+  border: 3px solid black;
+  color: #2CB3C9;
+  height: 30px;
+  width: 100px;
+  text-align: center;
+  margin: auto;
+  margin-top: 50px;
+  margin-bottom:50px;
+}
+
+.prize {
+  margin-top: 50px;
+  margin-bottom: 50px;
+  margin-left: 45%;
+}
+
+body h3 {
+  text-align: center;
+}
+
