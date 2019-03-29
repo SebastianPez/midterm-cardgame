@@ -1,7 +1,7 @@
 exports.up = function(knex, Promise) {
     return Promise.all([
-      knex.schema.addColumn('cards', function(table){
-        table.string('url');
+      knex.schema.table('cards', function(table){
+        table.addColumn('url');
       })
     ])
   };
