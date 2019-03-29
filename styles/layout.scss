@@ -1,5 +1,6 @@
 .body {
   background-color: #D3E298;
+  height: 900px;
 }
 
 body h1 {
@@ -16,15 +17,24 @@ container {
   height: 100px;
 }
 
-.score-board {
+.score-board1 {
   border: 3px solid black;
   color: #2CB3C9;
   height: 30px;
   width: 100px;
   text-align: center;
-  margin: auto;
-  margin-top: 50px;
-  margin-bottom:50px;
+  margin: 0;
+  float: left;
+}
+
+.score-board2 {
+  border: 3px solid black;
+  color: #2CB3C9;
+  height: 30px;
+  width: 100px;
+  text-align: center;
+  margin: 0;
+  float: right;
 }
 
 .prize {
@@ -37,3 +47,7 @@ body h3 {
   text-align: center;
 }
 
+.cards {
+  position: absolute;
+  float: bottom;
+}

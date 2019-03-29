@@ -24,11 +24,13 @@ const usersRoutes = require("./routes/users");
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 
-//Cookie Session
+//Cookie Session req.session
 app.use(cookieSession({
   name: "session",
-  keys: ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"]
+  keys: ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"],
+  maxAge: 2343254365464675476576
 }));
+
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
 
@@ -46,11 +48,21 @@ app.use(express.static("public"));
 // app.use("/api/users", usersRoutes(knex));
 
 // Home page
-app.get("/", (req, res) => {
-  res.render("goofspiel");
 
+app.post("/game/:matchId", (req, res) => {
+  const game = knex('matches')
+  .insert({player1_name: req.session.player}, 'player1_name')
+    .then(function(res) {
+      console.log("RESSSSS", res)
+    });
+  // create game in DB and save to variable
+
+  res.redirect("/game/:gameId");
 });
 
+app.get("/game/:gameId", (req, res) => {
+  res.render("goofspiel")
+})
 app.get("/login", (req, res) => {
   res.render("login");
 
@@ -61,7 +73,7 @@ app.get("/games", (req, res) => {
 })
 
 app.post("/login", (req, res) => {
-
+  req.session.player = req.body.username
   knex('players')
 .insert(
     { name: req.body.username})
