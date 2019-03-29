@@ -50,19 +50,20 @@ app.use(express.static("public"));
 // Home page
 
 app.post("/game/:matchId", (req, res) => {
-  const game = knex('matches')
+  const create = knex('matches')
   .insert({player1_name: req.session.player}, 'player1_name')
+    .then(function(res) {
+    });
+  // create game in DB and save to variable
+  res.render("goofspiel");
+});
+
+app.get("/game/:matchId", (req, res) => {
+  const join = knex('matches').UPDATE({player2_name:req.session.player}, 'player2_name')
     .then(function(res) {
 
     });
-  // create game in DB and save to variable
-  res.redirect("/game/:gameId");
-});
 
-app.get("/game/:gameId", (req, res) => {
-  let templateVars = {
-
-  }
   res.render("goofspiel")
 })
 app.get("/login", (req, res) => {
