@@ -13,13 +13,13 @@
 <body class="body">
     <h1>Digi Games</h1>
     <h3>Choose a game to get started</h3>
-    <form method="POST" action="/game/:matchId">
+    <% let matchId = Math.floor(Math.random() * 1000) %>
+    <form method="POST" action="/game/<%=matchId%>">
       <button type="submit">CREATE GAME</button>
     </form>
-    <form method="GET" action="/game/:matchId">
+    <form method="GET" action="/">
       <button type="submit">JOIN GAME</button>
     </form>
-    <!-- <a href="/game/:matchid">Click to play Goofspiel</a> -->
     <div><img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/20/Royal_flush.jpg/1200px-Royal_flush.jpg" alt="goofspiel" height=200 width="300"></div>
 
 </body>
