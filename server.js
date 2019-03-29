@@ -45,7 +45,12 @@ app.use(express.static("public"));
 
 // Home page
 
-
+app.get("/", (req, res) => {
+  knex.from('cards').select('id', 'url').then(cards => {
+    let templateVars = {prize: cards};
+    res.render('goofspiel', templateVars);
+  });
+});
 
 app.get("/", (req, res) => {
   knex.from('cards').select('id', 'url').then(cards => {
