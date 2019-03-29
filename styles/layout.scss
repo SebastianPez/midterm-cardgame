@@ -27,10 +27,11 @@ container {
   margin-bottom:50px;
 }
 
-.prize {
-  margin-top: 50px;
-  margin-bottom: 50px;
-  margin-left: 45%;
+div.prize {
+  margin: 0 auto;
+  display: block;
+  padding: 0px 0px 15px 0px;
+  width: 70px;
 }
 
 body h3 {
