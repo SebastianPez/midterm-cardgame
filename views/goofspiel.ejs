@@ -14,27 +14,31 @@
 
   <body class="body">
         <h1>Let's Play GOOFSPIEL</h1>
-        <div class='score-board1'>SCORE</div>
- <!--        <div class='score-board2'>SCORE</div> -->
-
-        <div class="prize"><img src="https://i.imgur.com/G0A5i1S.jpg" alt="AH" height=100 width="70"></div>
-
-        <button type="submit" class="btn btn-danger">Lock Bid</button> </li>
-        <div class='score-board2'>SCORE</div>
+        <div class='score-board'>SCORE: 0</div>
+        <div class="prize">
+            <% let index = Math.floor(Math.random() * prize.length) %>
+            <img src="<%= prize[index].url %>" height=100 width=70 >
+        </div>
+          <form action="/lock" method="POST">
+          <div class='bid-card'></div>
+          <button id='lock-bid' type="submit" class="btn btn-danger" value="Button">Lock Bid</button> </li>
+        </form>
         <container class='cards'>
-            <div><img src="https://i.imgur.com/j0dSutk.jpg" alt="AC" height=100 width="70"></div>
-            <div><img src="https://i.imgur.com/7rqWCCs.jpg" alt="2C" height=100 width="70"></div>
-            <div><img src="https://i.imgur.com/3NhIHBL.jpg" alt="3C" height=100 width="70"></div>
-            <div><img src="https://i.imgur.com/tnmcqbv.jpg" alt="4C" height=100 width="70"></div>
-            <div><img src="https://i.imgur.com/KwLzah4.jpg" alt="5C" height=100 width="70"></div>
-            <div><img src="https://i.imgur.com/7GWSvCE.jpg" alt="6C" height=100 width="70"></div>
-            <div><img src="https://i.imgur.com/0WJ3vAL.jpg" alt="7C" height=100 width="70"></div>
-            <div><img src="https://i.imgur.com/94vklTp.jpg" alt="8C" height=100 width="70"></div>
-            <div><img src="https://i.imgur.com/jGXx2jT.jpg" alt="9C" height=100 width="70"></div>
-            <div><img src="https://i.imgur.com/henysjp.jpg" alt="10C" height=100 width="70"></div>
-            <div><img src="https://i.imgur.com/952m9Jm.jpg" alt="JC" height=100 width="70"></div>
-            <div><img src="https://i.imgur.com/1ZesG8g.jpg" alt="QC" height=100 width="70"></div>
-            <div><img src="https://i.imgur.com/xrbexQ4.jpg" alt="KC" height=100 width="70"></div>
+          <div><img id="1" src="https://i.imgur.com/j0dSutk.jpg" alt="AC" height=100 width="70"></div>
+          <div><img id="2" src="https://i.imgur.com/7rqWCCs.jpg" alt="2C" height=100 width="70"></div>
+          <div><img id="3" src="https://i.imgur.com/3NhIHBL.jpg" alt="3C" height=100 width="70"></div>
+          <div><img id="4" src="https://i.imgur.com/tnmcqbv.jpg" alt="4C" height=100 width="70"></div>
+          <div><img id="5" src="https://i.imgur.com/KwLzah4.jpg" alt="5C" height=100 width="70"></div>
+          <div><img id="6" src="https://i.imgur.com/7GWSvCE.jpg" alt="6C" height=100 width="70"></div>
+          <div><img id="7" src="https://i.imgur.com/0WJ3vAL.jpg" alt="7C" height=100 width="70"></div>
+          <div><img id="8" src="https://i.imgur.com/94vklTp.jpg" alt="8C" height=100 width="70"></div>
+          <div><img id="9" src="https://i.imgur.com/jGXx2jT.jpg" alt="9C" height=100 width="70"></div>
+          <div><img id="10" src="https://i.imgur.com/henysjp.jpg" alt="10C" height=100 width="70"></div>
+          <div><img id="11" src="https://i.imgur.com/952m9Jm.jpg" alt="JC" height=100 width="70"></div>
+          <div><img id="12" src="https://i.imgur.com/1ZesG8g.jpg" alt="QC" height=100 width="70"></div>
+          <div><img id="13" src="https://i.imgur.com/xrbexQ4.jpg" alt="KC" height=100 width="70"></div>
+
+
         </container>
   </body>
 

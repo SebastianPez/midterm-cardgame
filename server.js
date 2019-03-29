@@ -2,18 +2,18 @@
 
 require('dotenv').config();
 
-const PORT        = process.env.PORT || 8080;
-const ENV         = process.env.ENV || "development";
-const express     = require("express");
-const bodyParser  = require("body-parser");
-const sass        = require("node-sass-middleware");
-const app         = express();
+const PORT = process.env.PORT || 8080;
+const ENV = process.env.ENV || "development";
+const express = require("express");
+const bodyParser = require("body-parser");
+const sass = require("node-sass-middleware");
+const app = express();
 const cookieSession = require("cookie-session")
 
-const knexConfig  = require("./knexfile");
-const knex        = require("knex")(knexConfig[ENV]);
-const morgan      = require('morgan');
-const knexLogger  = require('knex-logger');
+const knexConfig = require("./knexfile");
+const knex = require("knex")(knexConfig[ENV]);
+const morgan = require('morgan');
+const knexLogger = require('knex-logger');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -45,27 +45,43 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-// app.use("/api/users", usersRoutes(knex));
 
 // Home page
 
-app.post("/game/:matchId", (req, res) => {
+
+
+app.get("/", (req, res) => {
+  knex.from('cards').select('id', 'url').then(cards => {
+    let templateVars = {prize: cards};
+    res.render('goofspiel', templateVars);
+  });
+});
+
+app.get("/games/:game_id", (req, res) => {
+  knex.from('matches').select('*').where({game_id: req.params.game_id}).then(matches => {
+    let templateVars = {matches: matches};
+    res.render('allgames', templateVars);
+  });
+});
+
+app.post("/game/:gameId", (req, res) => {
   const create = knex('matches')
-  .insert({player1_name: req.session.player}, 'player1_name')
+  .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
     .then(function(res) {
     });
   // create game in DB and save to variable
   res.render("goofspiel");
 });
 
-app.get("/game/:matchId", (req, res) => {
-  const join = knex('matches').UPDATE({player2_name:req.session.player}, 'player2_name')
+app.post("/match/:matchId/join", (req, res) => {
+  const join = knex('matches').where({'id', '=', req.params.matchId}).update({player2_name: req.session.player})
     .then(function(res) {
 
     });
 
   res.render("goofspiel")
 })
+
 app.get("/login", (req, res) => {
   res.render("login");
 
@@ -78,17 +94,31 @@ app.get("/games", (req, res) => {
 app.post("/login", (req, res) => {
   req.session.player = req.body.username
   knex('players')
-.insert(
-    { name: req.body.username})
-.asCallback((err) => {
-    res.redirect("/games");
-  if(err){
-      console.log(err);
-  }
-}
-)});
+    .insert(
+      { name: req.body.username })
+    .asCallback((err) => {
+      res.redirect("/games");
+      if (err) {
+        console.log(err);
+      }
+    }
+    )
+});
 
+app.post("/lock", (req, res) => {
+  const cardId = req.body.cardId
+  knex('rounds').insert(
+    { bid: Number(req.body.cardId) }
+  )
+    .asCallback((err) => {
+      // res.redirect("/games/:gameid");
+      if (err) {
+        console.log(err);
+      }
+    })
+})
 
 app.listen(PORT, () => {
-  console.log("Example app listening on port " + PORT);
+
+  console.log("DigiGames listening on port " + PORT);
 });
