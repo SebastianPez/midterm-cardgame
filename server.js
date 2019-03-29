@@ -2,18 +2,18 @@
 
 require('dotenv').config();
 
-const PORT        = process.env.PORT || 8080;
-const ENV         = process.env.ENV || "development";
-const express     = require("express");
-const bodyParser  = require("body-parser");
-const sass        = require("node-sass-middleware");
-const app         = express();
+const PORT = process.env.PORT || 8080;
+const ENV = process.env.ENV || "development";
+const express = require("express");
+const bodyParser = require("body-parser");
+const sass = require("node-sass-middleware");
+const app = express();
 const cookieSession = require("cookie-session")
 
-const knexConfig  = require("./knexfile");
-const knex        = require("knex")(knexConfig[ENV]);
-const morgan      = require('morgan');
-const knexLogger  = require('knex-logger');
+const knexConfig = require("./knexfile");
+const knex = require("knex")(knexConfig[ENV]);
+const morgan = require('morgan');
+const knexLogger = require('knex-logger');
 
 // Seperated Routes for each Resource
 const usersRoutes = require("./routes/users");
@@ -67,15 +67,29 @@ app.get("/games", (req, res) => {
 app.post("/login", (req, res) => {
 
   knex('players')
-.insert(
-    { name: req.body.username})
-.asCallback((err) => {
-    res.redirect("/games");
-  if(err){
-      console.log(err);
-  }
-}
-)});
+    .insert(
+      { name: req.body.username })
+    .asCallback((err) => {
+      res.redirect("/games");
+      if (err) {
+        console.log(err);
+      }
+    }
+    )
+});
+
+app.post("/lock", (req, res) => {
+  const cardId = req.body.cardId
+  knex('rounds').insert(
+    { bid: Number(req.body.cardId) }
+  )
+    .asCallback((err) => {
+      // res.redirect("/games/:gameid");
+      if (err) {
+        console.log(err);
+      }
+    })
+})
 
 app.listen(PORT, () => {
   console.log("DigiGames listening on port " + PORT);
