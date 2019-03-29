@@ -1,14 +1,13 @@
 exports.up = function(knex, Promise) {
     return Promise.all([
-      knex.schema.table('cards', function(table){
+      knex.schema.addColumn('cards', function(table){
         table.string('url');
-        table.integer('id');
       })
     ])
   };
 
   exports.down = function(knex, Promise) {
     return Promise.all([
-      knex.schema.dropColumn('urls')
+      knex.schema.dropColumn('url')
     ])
   };
