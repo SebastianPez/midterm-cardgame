@@ -43,7 +43,6 @@ app.use("/styles", sass({
 app.use(express.static("public"));
 
 // Mount all resource routes
-// app.use("/api/users", usersRoutes(knex));
 
 // Home page
 
@@ -78,20 +77,6 @@ app.post("/login", (req, res) => {
 }
 )});
 
-app.post("/lock", (req, res) => {
-
-  knex('players')
-.insert(
-    { name: req.body.username})
-.asCallback((err) => {
-    res.redirect("/games");
-  if(err){
-      console.log(err);
-  }
-}
-)});
-
-
 app.listen(PORT, () => {
-  console.log("Example app listening on port " + PORT);
+  console.log("DigiGames listening on port " + PORT);
 });
