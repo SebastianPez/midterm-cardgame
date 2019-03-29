@@ -24,11 +24,13 @@ const usersRoutes = require("./routes/users");
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
 app.use(morgan('dev'));
 
-//Cookie Session
+//Cookie Session req.session
 app.use(cookieSession({
   name: "session",
-  keys: ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"]
+  keys: ["ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789"],
+  maxAge: 2343254365464675476576
 }));
+
 // Log knex SQL queries to STDOUT as well
 app.use(knexLogger(knex));
 
@@ -46,14 +48,39 @@ app.use(express.static("public"));
 
 // Home page
 
+
+
 app.get("/", (req, res) => {
   knex.from('cards').select('id', 'url').then(cards => {
     let templateVars = {prize: cards};
     res.render('goofspiel', templateVars);
-  })
-
+  });
 });
 
+app.get("/games/:game_id", (req, res) => {
+  knex.from('matches').select('*').where({game_id: req.params.game_id}).then(matches => {
+    let templateVars = {matches: matches};
+    res.render('allgames', templateVars);
+  });
+});
+
+app.post("/game/:gameId", (req, res) => {
+  const create = knex('matches')
+  .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
+    .then(function(res) {
+    });
+  // create game in DB and save to variable
+  res.render("goofspiel");
+});
+
+app.post("/match/:matchId/join", (req, res) => {
+  const join = knex('matches').where({'id', '=', req.params.matchId}).update({player2_name: req.session.player})
+    .then(function(res) {
+
+    });
+
+  res.render("goofspiel")
+})
 
 app.get("/login", (req, res) => {
   res.render("login");
@@ -65,7 +92,7 @@ app.get("/games", (req, res) => {
 })
 
 app.post("/login", (req, res) => {
-
+  req.session.player = req.body.username
   knex('players')
     .insert(
       { name: req.body.username })
@@ -92,5 +119,6 @@ app.post("/lock", (req, res) => {
 })
 
 app.listen(PORT, () => {
+
   console.log("DigiGames listening on port " + PORT);
 });
