@@ -14,12 +14,14 @@
 
   <body class="body">
         <h1>Let's Play GOOFSPIEL</h1>
-        <div class='score-board'>SCORE</div>
-
-        <div class="prize"><img src="https://i.imgur.com/G0A5i1S.jpg" alt="AH" height=100 width="70"></div>
+        <div class='score-board'>SCORE: 0</div>
+        <div class="prize">
+            <% let index = Math.floor(Math.random() * prize.length) %>
+            <img src="<%= prize[index].url %>" height=100 width=70 >
+        </div>
         <button type="submit" class="btn btn-danger">Lock Bid</button> </li>
         <container class='cards'>
-            <div><img src="https://i.imgur.com/j0dSutk.jpg" alt="AC" height=100 width="70"></div>
+            <div id='1'><img src="https://i.imgur.com/j0dSutk.jpg" alt="AC" height=100 width="70"></div>
             <div><img src="https://i.imgur.com/7rqWCCs.jpg" alt="2C" height=100 width="70"></div>
             <div><img src="https://i.imgur.com/3NhIHBL.jpg" alt="3C" height=100 width="70"></div>
             <div><img src="https://i.imgur.com/tnmcqbv.jpg" alt="4C" height=100 width="70"></div>

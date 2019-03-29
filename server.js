@@ -46,10 +46,15 @@ app.use(express.static("public"));
 // app.use("/api/users", usersRoutes(knex));
 
 // Home page
+
 app.get("/", (req, res) => {
-  res.render("goofspiel");
+  knex.from('cards').select('id', 'url').then(cards => {
+    let templateVars = {prize: cards};
+    res.render('goofspiel', templateVars);
+  })
 
 });
+
 
 app.get("/login", (req, res) => {
   res.render("login");
@@ -61,6 +66,19 @@ app.get("/games", (req, res) => {
 })
 
 app.post("/login", (req, res) => {
+
+  knex('players')
+.insert(
+    { name: req.body.username})
+.asCallback((err) => {
+    res.redirect("/games");
+  if(err){
+      console.log(err);
+  }
+}
+)});
+
+app.post("/lock", (req, res) => {
 
   knex('players')
 .insert(
