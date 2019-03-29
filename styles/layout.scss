@@ -19,12 +19,13 @@ container {
 .score-board {
   border: 3px solid black;
   color: #2CB3C9;
-  height: 30px;
-  width: 100px;
+  height: 100%;
+  width: 120px;
   text-align: center;
   margin: auto;
   margin-top: 50px;
   margin-bottom:50px;
+  background-color: darkblue;
 }
 
 div.prize {
