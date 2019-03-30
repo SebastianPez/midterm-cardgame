@@ -60,11 +60,23 @@ app.get("/", (req, res) => {
   });
 });
 
-app.get("/game/:matchID", (req, res) => {
-  knex.from('matches').select('*').where({game_id: req.params.game_id}).then(matches => {
+
+app.get("/games/:game_id", (req, res) => {
+  knex.from('matches').select('*').where({game_id: req.params.game_id}).where({player2_name: null}).then(matches => {
     let templateVars = {matches: matches};
-    res.render('allgames', templateVars);
+    res.render('gfLobby', templateVars);
   });
+});
+
+
+app.post("/games/:gameId", (req, res) => {
+  const create = knex('matches')
+  .insert({player1_name: req.session.player, game_id: req.params.game_id}, 'player1_name')
+    .then(function(res) {
+    });
+    res.redirect("/");
+  // create game in DB and save to variable
+
 });
 
 app.post("/game/:matchId", (req, res) => {
@@ -83,6 +95,7 @@ app.post("/match/:matchId/join", (req, res) => {
     .then(function(res) {
     });
   res.render("goofspiel")
+
 })
 
 app.get("/login", (req, res) => {
@@ -93,7 +106,9 @@ app.get("/games", (req, res) => {
   res.render("games_index");
 })
 
+
 app.post("/login", (req, res) => {
+  console.log("REQQQQQQ", req)
   req.session.player = req.body.username
   knex('players')
     .insert(
@@ -106,6 +121,8 @@ app.post("/login", (req, res) => {
     }
     )
 });
+
+// Also need to insert match_id(probably from req.params.match_id), player_id(From cookie) and round_num(should be auto-incrementing?).
 
 app.post("/lock", (req, res) => {
   const cardId = req.body.cardId
