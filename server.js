@@ -14,7 +14,16 @@ const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
-
+const deck = function() {
+  let suits = ['hearts', 'clubs', 'diamonds', 'spades'];
+  let values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  let fullDeck = [];
+  for (let suit of suits){
+    for (let value of values){
+      fullDeck.push({suit: suit, value: value})
+    }
+  } return fullDeck;
+}
 
 // app.use('/users', userRoutes(knex))
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
@@ -46,19 +55,11 @@ app.use(express.static("public"));
 
 // Home page
 
-app.get("/", (req, res) => {
-  knex.from('cards').select('id', 'url').then(cards => {
-    let templateVars = {prize: cards};
-    res.render('goofspiel', templateVars);
-  });
-});
 
 app.get("/", (req, res) => {
-  knex.from('cards').select('id', 'url').then(cards => {
-    let templateVars = {prize: cards};
-    res.render('goofspiel', templateVars);
+    res.render('goofspiel');
   });
-});
+
 
 
 app.get("/games/:game_id", (req, res) => {
@@ -69,23 +70,32 @@ app.get("/games/:game_id", (req, res) => {
 });
 
 
-app.post("/games/:gameId", (req, res) => {
-  const create = knex('matches')
-  .insert({player1_name: req.session.player, game_id: req.params.game_id}, 'player1_name')
-    .then(function(res) {
-    });
-    res.redirect("/");
-  // create game in DB and save to variable
+// app.post("/games/:gameId", (req, res) => {
+//   const create = knex('matches')
+//   .insert({player1_name: req.session.player, game_id: req.params.game_id}, 'player1_name')
+//     .then(function(res) {
+//     });
+//     res.redirect("/");
+//   // create game in DB and save to variable
 
-});
+// });
 
-app.post("/game/:matchId", (req, res) => {
-  console.log(cardValues);
+app.post("/games/:matchId", (req, res) => {
   knex('matches')
   .insert({player1_name: req.session.player, game_id: 1})
-    .then(function(res) {
-    });
+  .returning('id')
+  .then(function(ids) {
+    let newArray = deck().map(function(el){
+      return {...el, match_id: ids[0]}
+    })
+    return knex('cards').insert(newArray);
+  })
+  .then(function(){
     res.redirect("/");
+  })
+  .catch(function(err){
+    console.log(err);
+  })
 
   // create game in DB and save to variable
 });
