@@ -51,8 +51,6 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
-// Home page
-
 app.get("/", (req, res) => {
 
     knex('cards').select().where({match_id: 59})
@@ -85,13 +83,23 @@ app.get("/games/:game_id", (req, res) => {
   });
 });
 
+
+// app.post("/games/:gameId", (req, res) => {
+//   const create = knex('matches')
+//   .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
+//     .then(function(res) {
+//     })
+//     res.redirect("/");
+//   // create game in DB and save to variable
+// });
+
 app.post("/games/:matchId", (req, res) => {
   knex('matches')
   .insert({player1_name: req.session.player, game_id: 1})
   .returning('id')
   .then(function(ids) {
     let newArray = deck().map(function(el){
-      return {...el, match_id: ids[0]} 
+      return {...el, match_id: ids[0]}
     })
     return knex('cards').insert(newArray);
   })
@@ -110,9 +118,6 @@ app.post("/games/:matchId", (req, res) => {
   .catch(function(err){
     console.log(err);
   })
-
-  // create game in DB and save to variable
-
 });
 
 app.post("/match/:matchId/join", (req, res) => {
@@ -152,7 +157,7 @@ app.post("/login", (req, res) => {
 app.post("/lock", (req, res) => {
   const cardId = req.body.cardId
   knex('rounds').insert(
-    { bid: Number(req.body.cardId) }
+    { player1_bid: Number(req.body.cardId) }
   )
     .asCallback((err) => {
       if (err) {
