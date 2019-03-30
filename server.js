@@ -87,15 +87,6 @@ app.get("/games/:game_id", (req, res) => {
 });
 
 
-app.post("/games/:gameId", (req, res) => {
-  const create = knex('matches')
-  .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
-    .then(function(res) {
-    })
-    res.redirect("/");
-  // create game in DB and save to variable
-
-
 app.post("/games/:matchId", (req, res) => {
   knex('matches')
   .insert({player1_name: req.session.player, game_id: 1})
