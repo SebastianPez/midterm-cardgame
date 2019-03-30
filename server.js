@@ -74,7 +74,7 @@ app.post("/game/:gameId", (req, res) => {
 });
 
 app.post("/match/:matchId/join", (req, res) => {
-  const join = knex('matches').where({'id', '=', req.params.matchId}).update({player2_name: req.session.player})
+  const join = knex('matches').where({'id': req.params.matchId}).update({player2_name: req.session.player})
     .then(function(res) {
 
     });
@@ -104,6 +104,8 @@ app.post("/login", (req, res) => {
     }
     )
 });
+
+// Also need to insert match_id(probably from req.params.match_id), player_id(From cookie) and round_num(should be auto-incrementing?).
 
 app.post("/lock", (req, res) => {
   const cardId = req.body.cardId
