@@ -46,55 +46,41 @@ app.use(express.static("public"));
 // Home page
 
 app.get("/", (req, res) => {
-  knex.from('cards').select('id', 'url').then(cards => {
-    let templateVars = {prize: cards};
-    res.render('goofspiel', templateVars);
-  });
+  // knex('cards').insert('id', 'url').then(cards => {
+  //   let templateVars = {prize: cards};
+    res.render('goofspiel');
+  // });
 });
-
-app.get("/", (req, res) => {
-  knex.from('cards').select('id', 'url').then(cards => {
-    let templateVars = {prize: cards};
-    res.render('goofspiel', templateVars);
-  });
-});
-
 
 app.get("/games/:game_id", (req, res) => {
   knex.from('matches').select('*').where({game_id: req.params.game_id}).where({player2_name: null}).then(matches => {
-    let templateVars = {matches: matches};
-    res.render('gfLobby', templateVars);
+    let templateVars = {
+      matches: matches
+    };
+    console.log("matches!!", matches)
+    res.render("gfLobby", templateVars);
   });
 });
 
 
 app.post("/games/:gameId", (req, res) => {
   const create = knex('matches')
-  .insert({player1_name: req.session.player, game_id: req.params.game_id}, 'player1_name')
+  .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
     .then(function(res) {
-    });
+    })
     res.redirect("/");
   // create game in DB and save to variable
 
-});
-
-app.post("/game/:matchId", (req, res) => {
-  knex('matches')
-  .insert({player1_name: req.session.player, game_id: 1})
-    .then(function(res) {
-    });
-    res.redirect("/");
-
-  // create game in DB and save to variable
 });
 
 app.post("/match/:matchId/join", (req, res) => {
-    knex('matches').where({'id': req.params.matchId}).update({player2_name: req.session.player})
-    .then(function(res) {
-    });
-  res.render("goofspiel")
+  knex('matches').where({id: req.params.matchId}).update({player2_name: req.session.player})
+  .then(function(result) {
 
+    res.redirect("/")
+  });
 })
+
 
 app.get("/login", (req, res) => {
   res.render("login");
@@ -106,7 +92,6 @@ app.get("/games", (req, res) => {
 
 
 app.post("/login", (req, res) => {
-  console.log("REQQQQQQ", req)
   req.session.player = req.body.username
   knex('players')
     .insert(

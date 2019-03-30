@@ -15,13 +15,6 @@
   <body class="body">
         <h1>Let's Play GOOFSPIEL</h1>
 
-        <% let index = Math.floor(Math.random() * prize.length) %>
-        <div class='score-board'>YOUR SCORE: <%=prize[index].id%></div>
-        <div class='score-board'>OPPONENT'S SCORE: 0</div>
-
-
-        <div class="prize">
-            <img src="<%= prize[0].url %>" height=100 width=70 >
 
         </div>
           <form action="/lock" method="POST">

@@ -4,12 +4,38 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Index</title>
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/join.css" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
 </head>
-<body class="body">
-    <h1>Welcome to Goofspiel</h1>
-    <h3>OPEN LOBBIES</h3>
+<body class="title">
+    <h1>Welcome to Goofspiel Lobby</h1>
+    <h3>OPEN GAMES</h3>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Game Id</th>
+            <th scope="col">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+
+
+          <% matches.forEach(function(match) { %>
+            <tr>
+              <form method = "POST" action="/match/<%= match.id %>/join">
+                <td>Game Id: <%= match.id %> </td>
+                <td><button type="submit">JOIN</button></td>
+              </form>
+            </tr>
+          <% }) %>
+
+
+
+        </tbody>
+      </table>
+
+
 </body>
 </html>
