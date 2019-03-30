@@ -54,26 +54,25 @@ app.use(express.static("public"));
 // Home page
 
 app.get("/", (req, res) => {
-
-      knex('cards').select().where({suit: 'spades', match_id: 20})
-      .returning('value')
-      .then(function(values){
-        let cards = [];
-        for(let value of values){
-          if(value.suit === 'spades'){
-            cards.push({value: value.value, suit: value.suit })
-          }
+    knex('cards').select().where({suit: 'spades', match_id: 20})
+    .returning('value')
+    .then(function(values){
+      let cards = [];
+      for(let value of values){
+        if(value.suit === 'spades'){
+          cards.push({value: value.value, suit: value.suit })
         }
-        console.log(cards);
-        let imagesArray = [];
-        let temp = "";
-        cards.forEach(function(element){
-          temp = "images/"+element.value+element.suit+".jpg";
-          imagesArray.push(temp);
-        });
-        let templateVars = {data: imagesArray};
-        res.render('goofspiel', templateVars);
-      })
+      }
+      console.log(cards);
+      let imagesArray = [];
+      let temp = "";
+      cards.forEach(function(element){
+        temp = "images/"+element.value+element.suit+".jpg";
+        imagesArray.push(temp);
+      });
+      let templateVars = {data: imagesArray};
+      res.render('goofspiel', templateVars);
+    })
   })
 
 app.get("/games/:game_id", (req, res) => {
@@ -87,14 +86,14 @@ app.get("/games/:game_id", (req, res) => {
 });
 
 
-app.post("/games/:gameId", (req, res) => {
-  const create = knex('matches')
-  .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
-    .then(function(res) {
-    })
-    res.redirect("/");
-  // create game in DB and save to variable
-
+// app.post("/games/:gameId", (req, res) => {
+//   const create = knex('matches')
+//   .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
+//     .then(function(res) {
+//     })
+//     res.redirect("/");
+//   // create game in DB and save to variable
+// });
 
 app.post("/games/:matchId", (req, res) => {
   knex('matches')
@@ -121,9 +120,6 @@ app.post("/games/:matchId", (req, res) => {
   .catch(function(err){
     console.log(err);
   })
-
-  // create game in DB and save to variable
-
 });
 
 app.post("/match/:matchId/join", (req, res) => {
