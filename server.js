@@ -14,8 +14,16 @@ const knexConfig = require("./knexfile");
 const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
-
-// app.use('/users', userRoutes(knex))
+const deck = function() {
+  let suits = ['hearts', 'clubs', 'diamonds', 'spades'];
+  let values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
+  let fullDeck = [];
+  for (let suit of suits){
+    for (let value of values){
+      fullDeck.push({suit: suit, value: value})
+    }
+  } return fullDeck;
+}
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -46,11 +54,27 @@ app.use(express.static("public"));
 // Home page
 
 app.get("/", (req, res) => {
-  // knex('cards').insert('id', 'url').then(cards => {
-  //   let templateVars = {prize: cards};
-    res.render('goofspiel');
-  // });
-});
+
+      knex('cards').select().where({suit: 'spades', match_id: 20})
+      .returning('value')
+      .then(function(values){
+        let cards = [];
+        for(let value of values){
+          if(value.suit === 'spades'){
+            cards.push({value: value.value, suit: value.suit })
+          }
+        }
+        console.log(cards);
+        let imagesArray = [];
+        let temp = "";
+        cards.forEach(function(element){
+          temp = "images/"+element.value+element.suit+".jpg";
+          imagesArray.push(temp);
+        });
+        let templateVars = {data: imagesArray};
+        res.render('goofspiel', templateVars);
+      })
+  })
 
 app.get("/games/:game_id", (req, res) => {
   knex.from('matches').select('*').where({game_id: req.params.game_id}).where({player2_name: null}).then(matches => {
@@ -69,6 +93,35 @@ app.post("/games/:gameId", (req, res) => {
     .then(function(res) {
     })
     res.redirect("/");
+  // create game in DB and save to variable
+
+
+app.post("/games/:matchId", (req, res) => {
+  knex('matches')
+  .insert({player1_name: req.session.player, game_id: 1})
+  .returning('id')
+  .then(function(ids) {
+    let newArray = deck().map(function(el){
+      return {...el, match_id: 20} //ids[0]
+    })
+    return knex('cards').insert(newArray);
+  })
+  .then(function() {
+    knex('cards').update({hand_id: 3}).where({suit: 'spades', match_id: 20})
+  })
+
+  .then(function(){
+    knex('cards').update({hand_id: 4}).where({suit: 'hearts', match_id: 20})
+    .then(function() {
+    })
+  })
+  .then(function(){
+    res.redirect("/");
+  })
+  .catch(function(err){
+    console.log(err);
+  })
+
   // create game in DB and save to variable
 
 });
@@ -105,6 +158,8 @@ app.post("/login", (req, res) => {
     )
 });
 
+// Also need to insert match_id(probably from req.params.match_id), player_id(From cookie) and round_num(should be auto-incrementing?).
+
 app.post("/lock", (req, res) => {
   const cardId = req.body.cardId
   knex('rounds').insert(
@@ -118,6 +173,5 @@ app.post("/lock", (req, res) => {
 })
 
 app.listen(PORT, () => {
-
-  console.log("DigiGames listening on port " + PORT);
+  console.log("LastMinuteGames listening on port " + PORT);
 });

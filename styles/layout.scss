@@ -29,8 +29,6 @@ container {
   background-color: darkblue;
 }
 
-
-
 div.prize {
   margin: 0 auto;
   display: block;
@@ -44,4 +42,10 @@ body h3 {
 
 img:hover {
   border: 2px, solid, red;
+}
+
+div.bid-card {
+  display: block;
+  width: 100px;
+  margin: 0 auto;
 }
