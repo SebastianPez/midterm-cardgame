@@ -15,9 +15,6 @@ const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 
-// Seperated Routes for each Resource
-const usersRoutes = require("./routes/users");
-
 // app.use('/users', userRoutes(knex))
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -48,7 +45,12 @@ app.use(express.static("public"));
 
 // Home page
 
-
+app.get("/", (req, res) => {
+  knex.from('cards').select('id', 'url').then(cards => {
+    let templateVars = {prize: cards};
+    res.render('goofspiel', templateVars);
+  });
+});
 
 app.get("/", (req, res) => {
   knex.from('cards').select('id', 'url').then(cards => {
@@ -57,41 +59,54 @@ app.get("/", (req, res) => {
   });
 });
 
+
 app.get("/games/:game_id", (req, res) => {
-  knex.from('matches').select('*').where({game_id: req.params.game_id}).then(matches => {
+  knex.from('matches').select('*').where({game_id: req.params.game_id}).where({player2_name: null}).then(matches => {
     let templateVars = {matches: matches};
-    res.render('allgames', templateVars);
+    res.render('gfLobby', templateVars);
   });
 });
 
-app.post("/game/:gameId", (req, res) => {
+
+app.post("/games/:gameId", (req, res) => {
   const create = knex('matches')
-  .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
+  .insert({player1_name: req.session.player, game_id: req.params.game_id}, 'player1_name')
     .then(function(res) {
     });
+    res.redirect("/");
   // create game in DB and save to variable
-  res.render("goofspiel");
+
+});
+
+app.post("/game/:matchId", (req, res) => {
+  knex('matches')
+  .insert({player1_name: req.session.player, game_id: 1})
+    .then(function(res) {
+    });
+    res.redirect("/");
+
+  // create game in DB and save to variable
 });
 
 app.post("/match/:matchId/join", (req, res) => {
-  const join = knex('matches').where({'id': req.params.matchId}).update({player2_name: req.session.player})
+    knex('matches').where({'id': req.params.matchId}).update({player2_name: req.session.player})
     .then(function(res) {
-
     });
-
   res.render("goofspiel")
+
 })
 
 app.get("/login", (req, res) => {
   res.render("login");
-
 });
 
 app.get("/games", (req, res) => {
   res.render("games_index");
 })
 
+
 app.post("/login", (req, res) => {
+  console.log("REQQQQQQ", req)
   req.session.player = req.body.username
   knex('players')
     .insert(
@@ -113,7 +128,6 @@ app.post("/lock", (req, res) => {
     { bid: Number(req.body.cardId) }
   )
     .asCallback((err) => {
-      // res.redirect("/games/:gameid");
       if (err) {
         console.log(err);
       }

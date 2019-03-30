@@ -37,12 +37,9 @@ $(document).ready(function () {
     //({ 'src': '$(this)[0].src', 'width': '$(this)[0].width', 'height': '$(this)[0].height' } );
 
     //$(this).css({'width':'500px'});
+
   });
 
 
-
-  // $('img').click(function() {
-  //   $(this).css('display', 'none');
-  // });
 });
 
