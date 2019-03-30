@@ -4,7 +4,7 @@ exports.up = function(knex, Promise) {
     table.integer('game_id');
     table.string('player1_name');
     table.string('player2_name');
-    table.string('match_date');
+    table.integer('current_round');
     table.string('winner');
   });
 };

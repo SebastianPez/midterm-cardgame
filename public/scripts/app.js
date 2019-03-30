@@ -8,12 +8,7 @@ $(() => {
     for (user of users) {
       $("<div>").text(user.name).appendTo($("body"));
     }
-<<<<<<< HEAD
   });;
-=======
-
-  });
->>>>>>> 34693f3bf788aacd4fb4c623381450bca31a42c6
 });
 
 

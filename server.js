@@ -58,28 +58,28 @@ app.get("/", (req, res) => {
 });
 
 app.get("/games/:game_id", (req, res) => {
-  knex.from('matches').select('*').where({game_id: req.params.game_id}).then(matches => {
+  knex.from('matches').select('*').where({game_id: req.params.game_id}).where({player2_name: null}).then(matches => {
     let templateVars = {matches: matches};
-    res.render('allgames', templateVars);
+    res.render('gfLobby', templateVars);
   });
 });
 
-app.post("/game/:gameId", (req, res) => {
+app.post("/games/:gameId", (req, res) => {
   const create = knex('matches')
-  .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
+  .insert({player1_name: req.session.player, game_id: req.params.game_id}, 'player1_name')
     .then(function(res) {
     });
+    res.redirect("/");
   // create game in DB and save to variable
-  res.render("goofspiel");
+
 });
 
 app.post("/match/:matchId/join", (req, res) => {
-  const join = knex('matches').where({'id', '=', req.params.matchId}).update({player2_name: req.session.player})
+  const join = knex('matches').where({'id': req.params.matchId}).update({player2_name: req.session.player})
     .then(function(res) {
-
+      res.render("goofspiel")
     });
 
-  res.render("goofspiel")
 })
 
 app.get("/login", (req, res) => {
@@ -91,7 +91,9 @@ app.get("/games", (req, res) => {
   res.render("games_index");
 })
 
+
 app.post("/login", (req, res) => {
+  console.log("REQQQQQQ", req)
   req.session.player = req.body.username
   knex('players')
     .insert(
