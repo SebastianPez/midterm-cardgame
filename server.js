@@ -125,7 +125,7 @@ app.post("/login", (req, res) => {
 app.post("/lock", (req, res) => {
   const cardId = req.body.cardId
   knex('rounds').insert(
-    { bid: Number(req.body.cardId) }
+    { player1_bid: Number(req.body.cardId) }
   )
     .asCallback((err) => {
       if (err) {
@@ -138,3 +138,4 @@ app.listen(PORT, () => {
 
   console.log("DigiGames listening on port " + PORT);
 });
+
