@@ -24,6 +24,8 @@ const deck = function() {
     }
   } return fullDeck;
 }
+
+
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
 //         The :status token will be colored red for server error codes, yellow for client error codes, cyan for redirection codes, and uncolored for all other codes.
@@ -49,31 +51,28 @@ app.use("/styles", sass({
 }));
 app.use(express.static("public"));
 
-// Mount all resource routes
-
 // Home page
 
 app.get("/", (req, res) => {
 
-      knex('cards').select().where({suit: 'spades', match_id: 20})
-      .returning('value')
-      .then(function(values){
-        let cards = [];
-        for(let value of values){
-          if(value.suit === 'spades'){
-            cards.push({value: value.value, suit: value.suit })
-          }
+    knex('cards').select().where({match_id: 59})
+    .returning('value')
+    .then(function(values){
+      let cards = [];
+      for(let value of values){
+        if(value.suit === 'spades' || value.suit === 'hearts'){
+          cards.push({value: value.value, suit: value.suit })
         }
-        console.log(cards);
-        let imagesArray = [];
-        let temp = "";
-        cards.forEach(function(element){
-          temp = "images/"+element.value+element.suit+".jpg";
-          imagesArray.push(temp);
-        });
-        let templateVars = {data: imagesArray};
-        res.render('goofspiel', templateVars);
-      })
+      } console.log('THIS IS VALUES', values);
+      let imagesArray = [];
+      let temp = "";
+      cards.forEach(function(element){
+        temp = "images/"+element.value+element.suit+".jpg";
+        imagesArray.push(temp);
+      });
+      let templateVars = {data: cards};
+      res.render('goofspiel', templateVars);
+    })
   })
 
 app.get("/games/:game_id", (req, res) => {
@@ -86,23 +85,13 @@ app.get("/games/:game_id", (req, res) => {
   });
 });
 
-
-app.post("/games/:gameId", (req, res) => {
-  const create = knex('matches')
-  .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
-    .then(function(res) {
-    })
-    res.redirect("/");
-  // create game in DB and save to variable
-
-
 app.post("/games/:matchId", (req, res) => {
   knex('matches')
   .insert({player1_name: req.session.player, game_id: 1})
   .returning('id')
   .then(function(ids) {
     let newArray = deck().map(function(el){
-      return {...el, match_id: 20} //ids[0]
+      return {...el, match_id: ids[0]} 
     })
     return knex('cards').insert(newArray);
   })
@@ -174,4 +163,4 @@ app.post("/lock", (req, res) => {
 
 app.listen(PORT, () => {
   console.log("LastMinuteGames listening on port " + PORT);
-});
+})

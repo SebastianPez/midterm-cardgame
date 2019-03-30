@@ -26,7 +26,7 @@ const compareBids = function (p1Bid, p2Bid, prizeValue) {
     if (p1Bid === p2Bid) {
         console.log('Bids are equal, this round is a tie.');
         return;
-    
+
     // If player 1 has a higher bid than player 2, player 1 wins round and receives points equal to the value of the prize card. Cards are then discarded and next round begins.
     } else if (p1Bid > p2Bid) {
         console.log('Player 1 wins');
@@ -43,3 +43,9 @@ const compareBids = function (p1Bid, p2Bid, prizeValue) {
 // compareBids(7, 7);
 // compareBids(11, 9);
 // compareBids(6, 13);
+
+exports.cardGenerator = function (suit, match) {
+
+
+
+}

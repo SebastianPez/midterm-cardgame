@@ -14,14 +14,20 @@
 
   <body class="body">
         <h1>Let's Play GOOFSPIEL</h1>
-        <% let cardsArray = ['https://i.imgur.com/5WKQ0vj.jpg', 'https://i.imgur.com/SH6BHcn.jpg', 'https://i.imgur.com/WxOcQPz.jpg', 'https://i.imgur.com/U09lZAC.jpg', 'https://i.imgur.com/D9VzW6Z.jpg', 'https://i.imgur.com/YhNn3F7.jpg','https://i.imgur.com/Jfm6lgy.jpg ', 'https://i.imgur.com/z90fCJO.jpg', 'https://i.imgur.com/3Oa0gp7.jpg', 'https://i.imgur.com/Ol5v76h.jpg', 'https://i.imgur.com/JeYU4Y0.jpg', 'https://i.imgur.com/zqdytBK.jpg', 'https://i.imgur.com/0XKvllr.jpg' ]%>;
-        <% let index = Math.floor(Math.random() * cardsArray.length) %>
-        <div class='score-board'>YOUR SCORE: <%=index + 1%></div>
+        <div class='score-board'>YOUR SCORE: 0</div>
         <div class='score-board'>OPPONENT'S SCORE: 0</div>
 
 
         <div class="prize">
-            <img src="<%= cardsArray[index]; %>" height=100 width=70 >
+          <% let hearts = [] %>
+            <% for (let i = 0; i < data.length; i ++) { %>
+              <% if (data[i].suit === 'hearts') { %>
+                <% hearts.push(data[i]) }}%>
+          <% let random = Math.floor(Math.random() * hearts.length)  %>
+                <div>
+                  <img src="images/<%=hearts[random].value + hearts[random].suit%>.jpg" height=100 width=70 />
+                </div>
+
 
 
         </div>
@@ -33,11 +39,12 @@
         <container class='cards'>
 
 
-            <% data.forEach(function(element){ %>
+          <% data.forEach(function(element){ %>
+            <% if (element.suit === 'spades') { %>
                 <div>
-                  <img src="<%= element %>" height=100 width=70 />
+                  <img src="images/<%=element.value + element.suit%>.jpg" height=100 width=70 />
                 </div>
-            <% }) %>
+            <% }}) %>
 
         </container>
   </body>

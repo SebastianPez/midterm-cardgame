@@ -25,10 +25,10 @@ $(document).ready(function () {
     // console.log("test ", $(this).attr('id'));
     if ($('.bid-card').children().length > 0) {
       $('container.cards').append($('.bid-card div'));
-      console.log('testing');
-      console.log($('.bid-card').children());
+      // console.log('testing');
+      // console.log($('.bid-card').children());
     }
-      console.log($('div.bid-card').firstChild);
+      // console.log($('div.bid-card').firstChild);
       $('div.bid-card').append($(this));
       // $(this).css({ 'margin': 'auto', 'display': 'block', 'width': '100px' });
     //({ 'src': '$(this)[0].src', 'width': '$(this)[0].width', 'height': '$(this)[0].height' } );
