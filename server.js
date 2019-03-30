@@ -15,6 +15,7 @@ const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 
+
 // app.use('/users', userRoutes(knex))
 // Load the logger first so all (static) HTTP requests are logged to STDOUT
 // 'dev' = Concise output colored by response status for development use.
@@ -67,6 +68,7 @@ app.get("/game/:matchID", (req, res) => {
 });
 
 app.post("/game/:matchId", (req, res) => {
+  console.log(cardValues);
   knex('matches')
   .insert({player1_name: req.session.player, game_id: 1})
     .then(function(res) {

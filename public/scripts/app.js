@@ -12,10 +12,6 @@ $(() => {
   });
 
 });
-
-
-
-
 // When player clicks the card they want to play, it disappears from the DOM.
 
 $(document).ready(function () {
@@ -31,7 +27,5 @@ $(document).ready(function () {
     $('div.bid-card').append($(this));
     $(this).css({ 'margin': 'auto', 'display': 'block' });
   });
-
-
 });
 

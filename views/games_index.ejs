@@ -13,8 +13,7 @@
 <body class="body">
     <h1>Digi Games</h1>
     <h3>Choose a game to get started</h3>
-    <% let matchId = Math.floor(Math.random() * 1000) %>
-    <form method="POST" action="/game/<%=matchId%>">
+    <form method="POST" action="/game/1">
       <button type="submit">CREATE GAME</button>
     </form>
     <form method="GET" action="/">
