@@ -86,6 +86,7 @@ app.get("/games/:game_id", (req, res) => {
 });
 
 
+<<<<<<< HEAD
 // app.post("/games/:gameId", (req, res) => {
 //   const create = knex('matches')
 //   .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
@@ -95,6 +96,8 @@ app.get("/games/:game_id", (req, res) => {
 //   // create game in DB and save to variable
 // });
 
+=======
+>>>>>>> b9c5f55b42b185a2c56300ff4406deddfd2d2bdc
 app.post("/games/:matchId", (req, res) => {
   knex('matches')
   .insert({player1_name: req.session.player, game_id: 1})
@@ -159,7 +162,7 @@ app.post("/login", (req, res) => {
 app.post("/lock", (req, res) => {
   const cardId = req.body.cardId
   knex('rounds').insert(
-    { bid: Number(req.body.cardId) }
+    { player1_bid: Number(req.body.cardId) }
   )
     .asCallback((err) => {
       if (err) {
@@ -171,3 +174,4 @@ app.post("/lock", (req, res) => {
 app.listen(PORT, () => {
   console.log("LastMinuteGames listening on port " + PORT);
 });
+
