@@ -15,7 +15,7 @@ const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 const deck = function() {
-  let suits = ['hearts', 'clubs', 'diamonds', 'spades'];
+  let suits = ['hearts', 'diamonds', 'spades'];
   let values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
   let fullDeck = [];
   for (let suit of suits){
@@ -54,8 +54,11 @@ app.use(express.static("public"));
 // Home page
 
 app.get("/", (req, res) => {
-
-      knex('cards').select().where({suit: 'spades', match_id: 20})
+  console.log(req.query.valid);
+  let passedID = decodeURIComponent(req.query.valid);
+  console.log(passedID);
+      knex('cards').select().where( match_id: passedID)
+      // knex('cards').join('matches', 'matches.id', 'cards.match_id').select().where({suit: 'spades'})
       .returning('value')
       .then(function(values){
         let cards = [];
@@ -88,26 +91,37 @@ app.get("/games/:game_id", (req, res) => {
 
 
 app.post("/games/:matchId", (req, res) => {
+  let thisMatchId = 0;
+  let strthisMatchId;
   knex('matches')
   .insert({player1_name: req.session.player, game_id: 1})
   .returning('id')
   .then(function(ids) {
     let newArray = deck().map(function(el){
-      return {...el, match_id: 20} //ids[0]
+      thisMatchId = ids[0];
+      strthisMatchId = encodeURIComponent('' + thisMatchId);
+      return {...el, match_id: ids[0]}
     })
     return knex('cards').insert(newArray);
   })
   .then(function() {
-    knex('cards').update({hand_id: 3}).where({suit: 'spades', match_id: 20})
-  })
-
-  .then(function(){
-    knex('cards').update({hand_id: 4}).where({suit: 'hearts', match_id: 20})
+    console.log(thisMatchId);
+    knex('cards').update({hand_id: 2}).where({suit: 'hearts', match_id: thisMatchId})
     .then(function() {
     })
   })
   .then(function(){
-    res.redirect("/");
+    knex('cards').update({hand_id: 1}).where({suit: 'spades', match_id: thisMatchId})
+    .then(function() {
+    })
+  })
+  .then(function(){
+    knex('cards').update({hand_id: 3}).where({suit: 'diamonds', match_id: thisMatchId})
+    .then(function() {
+    })
+  })
+  .then(function(){
+    res.redirect("/?valid=" + strthisMatchId);
   })
   .catch(function(err){
     console.log(err);
@@ -120,7 +134,6 @@ app.post("/games/:matchId", (req, res) => {
 app.post("/match/:matchId/join", (req, res) => {
   knex('matches').where({id: req.params.matchId}).update({player2_name: req.session.player})
   .then(function(result) {
-
     res.redirect("/")
   });
 })
