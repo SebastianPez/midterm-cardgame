@@ -15,7 +15,7 @@ const knex = require("knex")(knexConfig[ENV]);
 const morgan = require('morgan');
 const knexLogger = require('knex-logger');
 const deck = function() {
-  let suits = ['hearts', 'clubs', 'diamonds', 'spades'];
+  let suits = ['hearts', 'diamonds', 'spades'];
   let values = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13];
   let fullDeck = [];
   for (let suit of suits){
@@ -52,14 +52,18 @@ app.use(express.static("public"));
 // Mount all resource routes
 
 // Home page
-
+let player2_name;
 app.get("/", (req, res) => {
-    knex('cards').select().where({suit: 'spades', match_id: 20})
+  var cardType = "spades"
+  if(req.session.player === player2_name) {
+    cardType = "diamonds"
+  }
+    knex('cards').select().where({suit: cardType, match_id: 1})
     .returning('value')
     .then(function(values){
       let cards = [];
       for(let value of values){
-        if(value.suit === 'spades'){
+        if(value.suit === cardType){
           cards.push({value: value.value, suit: value.suit })
         }
       }
@@ -73,47 +77,32 @@ app.get("/", (req, res) => {
       let templateVars = {data: imagesArray};
       res.render('goofspiel', templateVars);
     })
-  })
-
+})
 app.get("/games/:game_id", (req, res) => {
   knex.from('matches').select('*').where({game_id: req.params.game_id}).where({player2_name: null}).then(matches => {
     let templateVars = {
       matches: matches
     };
-    console.log("matches!!", matches)
     res.render("gfLobby", templateVars);
   });
 });
 
-
-<<<<<<< HEAD
-// app.post("/games/:gameId", (req, res) => {
-//   const create = knex('matches')
-//   .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
-//     .then(function(res) {
-//     })
-//     res.redirect("/");
-//   // create game in DB and save to variable
-// });
-
-=======
->>>>>>> b9c5f55b42b185a2c56300ff4406deddfd2d2bdc
 app.post("/games/:matchId", (req, res) => {
   knex('matches')
   .insert({player1_name: req.session.player, game_id: 1})
   .returning('id')
   .then(function(ids) {
     let newArray = deck().map(function(el){
-      return {...el, match_id: 20} //ids[0]
+      return {...el, match_id: 1} //ids[0]
     })
     return knex('cards').insert(newArray);
   })
   .then(function() {
-    knex('cards').update({hand_id: 3}).where({suit: 'spades', match_id: 20})
+    knex('cards').update({hand_id: 3}).where({suit: 'spades', match_id: 1})
   })
 
   .then(function(){
-    knex('cards').update({hand_id: 4}).where({suit: 'hearts', match_id: 20})
+    knex('cards').update({hand_id: 4}).where({suit: 'hearts', match_id: 1})
     .then(function() {
     })
   })
@@ -128,7 +117,7 @@ app.post("/games/:matchId", (req, res) => {
 app.post("/match/:matchId/join", (req, res) => {
   knex('matches').where({id: req.params.matchId}).update({player2_name: req.session.player})
   .then(function(result) {
-
+    player2_name = req.session.player;
     res.redirect("/")
   });
 })
