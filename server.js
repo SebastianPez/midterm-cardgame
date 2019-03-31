@@ -53,17 +53,30 @@ app.use(express.static("public"));
 
 // Home page
 
+let player2_name;
 app.get("/", (req, res) => {
-  console.log(req.query.valid);
+  let cardType = 'spades';
+  if (req.session.player === player2_name) {
+    cardType = "diamonds"
+  }
   let passedID = decodeURIComponent(req.query.valid);
-  console.log(passedID);
-      knex('cards').select().where( match_id: passedID)
-      // knex('cards').join('matches', 'matches.id', 'cards.match_id').select().where({suit: 'spades'})
+  let prizeCards = [];
+  knex('cards').select().where({suit: 'hearts', match_id: passedID})
+  .returning('value')
+  .then(function(values) {
+    for (let value of values) {
+      if (value.suit === 'hearts') {
+        prizeCards.push({value: value.value, suit: value.suit})
+      }
+    }
+  })
+  
+      knex('cards').select().where({ suit: cardType, match_id: passedID })
       .returning('value')
       .then(function(values){
         let cards = [];
         for(let value of values){
-          if(value.suit === 'spades'){
+          if(value.suit === cardType){
             cards.push({value: value.value, suit: value.suit })
           }
         }
@@ -74,7 +87,8 @@ app.get("/", (req, res) => {
           temp = "images/"+element.value+element.suit+".jpg";
           imagesArray.push(temp);
         });
-        let templateVars = {data: imagesArray};
+        let templateVars = {data: imagesArray, prize: prizeCards};
+        console.log(prize);
         res.render('goofspiel', templateVars);
       })
   })
@@ -84,7 +98,6 @@ app.get("/games/:game_id", (req, res) => {
     let templateVars = {
       matches: matches
     };
-    console.log("matches!!", matches)
     res.render("gfLobby", templateVars);
   });
 });
@@ -132,9 +145,12 @@ app.post("/games/:matchId", (req, res) => {
 });
 
 app.post("/match/:matchId/join", (req, res) => {
+  let strthisMatchId;
   knex('matches').where({id: req.params.matchId}).update({player2_name: req.session.player})
   .then(function(result) {
-    res.redirect("/")
+    strthisMatchId = encodeURIComponent('' + req.params.matchId);
+    player2_name = req.session.player;
+    res.redirect('/?valid=' + strthisMatchId)
   });
 })
 

@@ -1,0 +1,264 @@
+ id  |   suit   | value | hand_id | boolean | match_id 
+-----+----------+-------+---------+---------+----------
+  14 | clubs    |     1 |         |         |       20
+  15 | clubs    |     2 |         |         |       20
+  16 | clubs    |     3 |         |         |       20
+  17 | clubs    |     4 |         |         |       20
+  18 | clubs    |     5 |         |         |       20
+  19 | clubs    |     6 |         |         |       20
+  20 | clubs    |     7 |         |         |       20
+  21 | clubs    |     8 |         |         |       20
+  22 | clubs    |     9 |         |         |       20
+  23 | clubs    |    10 |         |         |       20
+  24 | clubs    |    11 |         |         |       20
+  25 | clubs    |    12 |         |         |       20
+  26 | clubs    |    13 |         |         |       20
+  27 | diamonds |     1 |         |         |       20
+  28 | diamonds |     2 |         |         |       20
+  29 | diamonds |     3 |         |         |       20
+  30 | diamonds |     4 |         |         |       20
+  31 | diamonds |     5 |         |         |       20
+  32 | diamonds |     6 |         |         |       20
+  33 | diamonds |     7 |         |         |       20
+  34 | diamonds |     8 |         |         |       20
+  35 | diamonds |     9 |         |         |       20
+  36 | diamonds |    10 |         |         |       20
+  37 | diamonds |    11 |         |         |       20
+  38 | diamonds |    12 |         |         |       20
+  39 | diamonds |    13 |         |         |       20
+  40 | spades   |     1 |         |         |       20
+  41 | spades   |     2 |         |         |       20
+  42 | spades   |     3 |         |         |       20
+  43 | spades   |     4 |         |         |       20
+  44 | spades   |     5 |         |         |       20
+  45 | spades   |     6 |         |         |       20
+  46 | spades   |     7 |         |         |       20
+  47 | spades   |     8 |         |         |       20
+  48 | spades   |     9 |         |         |       20
+  49 | spades   |    10 |         |         |       20
+  50 | spades   |    11 |         |         |       20
+  51 | spades   |    12 |         |         |       20
+  52 | spades   |    13 |         |         |       20
+ 105 | hearts   |     1 |         |         |        3
+ 106 | hearts   |     2 |         |         |        3
+ 107 | hearts   |     3 |         |         |        3
+ 108 | hearts   |     4 |         |         |        3
+ 109 | hearts   |     5 |         |         |        3
+ 110 | hearts   |     6 |         |         |        3
+ 111 | hearts   |     7 |         |         |        3
+ 112 | hearts   |     8 |         |         |        3
+ 113 | hearts   |     9 |         |         |        3
+ 114 | hearts   |    10 |         |         |        3
+ 115 | hearts   |    11 |         |         |        3
+ 116 | hearts   |    12 |         |         |        3
+ 117 | hearts   |    13 |         |         |        3
+  66 | clubs    |     1 |         |         |       20
+  67 | clubs    |     2 |         |         |       20
+  68 | clubs    |     3 |         |         |       20
+  69 | clubs    |     4 |         |         |       20
+  70 | clubs    |     5 |         |         |       20
+  71 | clubs    |     6 |         |         |       20
+  72 | clubs    |     7 |         |         |       20
+  73 | clubs    |     8 |         |         |       20
+  74 | clubs    |     9 |         |         |       20
+  75 | clubs    |    10 |         |         |       20
+  76 | clubs    |    11 |         |         |       20
+  77 | clubs    |    12 |         |         |       20
+  78 | clubs    |    13 |         |         |       20
+  79 | diamonds |     1 |         |         |       20
+  80 | diamonds |     2 |         |         |       20
+  81 | diamonds |     3 |         |         |       20
+  82 | diamonds |     4 |         |         |       20
+  83 | diamonds |     5 |         |         |       20
+  84 | diamonds |     6 |         |         |       20
+  85 | diamonds |     7 |         |         |       20
+  86 | diamonds |     8 |         |         |       20
+  87 | diamonds |     9 |         |         |       20
+  88 | diamonds |    10 |         |         |       20
+  89 | diamonds |    11 |         |         |       20
+  90 | diamonds |    12 |         |         |       20
+  91 | diamonds |    13 |         |         |       20
+  92 | spades   |     1 |         |         |       20
+  93 | spades   |     2 |         |         |       20
+  94 | spades   |     3 |         |         |       20
+  95 | spades   |     4 |         |         |       20
+  96 | spades   |     5 |         |         |       20
+  97 | spades   |     6 |         |         |       20
+  98 | spades   |     7 |         |         |       20
+  99 | spades   |     8 |         |         |       20
+ 100 | spades   |     9 |         |         |       20
+ 101 | spades   |    10 |         |         |       20
+ 102 | spades   |    11 |         |         |       20
+ 103 | spades   |    12 |         |         |       20
+ 104 | spades   |    13 |         |         |       20
+ 118 | clubs    |     1 |         |         |        3
+ 119 | clubs    |     2 |         |         |        3
+ 120 | clubs    |     3 |         |         |        3
+ 121 | clubs    |     4 |         |         |        3
+ 122 | clubs    |     5 |         |         |        3
+ 123 | clubs    |     6 |         |         |        3
+ 124 | clubs    |     7 |         |         |        3
+ 125 | clubs    |     8 |         |         |        3
+ 126 | clubs    |     9 |         |         |        3
+ 127 | clubs    |    10 |         |         |        3
+ 128 | clubs    |    11 |         |         |        3
+ 129 | clubs    |    12 |         |         |        3
+ 130 | clubs    |    13 |         |         |        3
+ 131 | diamonds |     1 |         |         |        3
+ 132 | diamonds |     2 |         |         |        3
+ 133 | diamonds |     3 |         |         |        3
+ 134 | diamonds |     4 |         |         |        3
+ 135 | diamonds |     5 |         |         |        3
+ 136 | diamonds |     6 |         |         |        3
+ 137 | diamonds |     7 |         |         |        3
+ 138 | diamonds |     8 |         |         |        3
+ 139 | diamonds |     9 |         |         |        3
+ 140 | diamonds |    10 |         |         |        3
+ 141 | diamonds |    11 |         |         |        3
+ 142 | diamonds |    12 |         |         |        3
+ 143 | diamonds |    13 |         |         |        3
+ 144 | spades   |     1 |         |         |        3
+ 145 | spades   |     2 |         |         |        3
+ 146 | spades   |     3 |         |         |        3
+ 147 | spades   |     4 |         |         |        3
+ 148 | spades   |     5 |         |         |        3
+ 149 | spades   |     6 |         |         |        3
+ 150 | spades   |     7 |         |         |        3
+ 151 | spades   |     8 |         |         |        3
+ 152 | spades   |     9 |         |         |        3
+ 153 | spades   |    10 |         |         |        3
+ 154 | spades   |    11 |         |         |        3
+ 155 | spades   |    12 |         |         |        3
+ 156 | spades   |    13 |         |         |        3
+ 157 | hearts   |     1 |         |         |        4
+ 158 | hearts   |     2 |         |         |        4
+ 159 | hearts   |     3 |         |         |        4
+ 160 | hearts   |     4 |         |         |        4
+ 161 | hearts   |     5 |         |         |        4
+ 162 | hearts   |     6 |         |         |        4
+ 163 | hearts   |     7 |         |         |        4
+ 164 | hearts   |     8 |         |         |        4
+ 165 | hearts   |     9 |         |         |        4
+ 166 | hearts   |    10 |         |         |        4
+ 167 | hearts   |    11 |         |         |        4
+ 168 | hearts   |    12 |         |         |        4
+ 169 | hearts   |    13 |         |         |        4
+ 170 | clubs    |     1 |         |         |        4
+ 171 | clubs    |     2 |         |         |        4
+ 172 | clubs    |     3 |         |         |        4
+ 173 | clubs    |     4 |         |         |        4
+ 174 | clubs    |     5 |         |         |        4
+ 175 | clubs    |     6 |         |         |        4
+ 176 | clubs    |     7 |         |         |        4
+ 177 | clubs    |     8 |         |         |        4
+ 178 | clubs    |     9 |         |         |        4
+ 179 | clubs    |    10 |         |         |        4
+ 180 | clubs    |    11 |         |         |        4
+ 181 | clubs    |    12 |         |         |        4
+ 182 | clubs    |    13 |         |         |        4
+ 183 | diamonds |     1 |         |         |        4
+ 184 | diamonds |     2 |         |         |        4
+ 185 | diamonds |     3 |         |         |        4
+ 186 | diamonds |     4 |         |         |        4
+ 187 | diamonds |     5 |         |         |        4
+ 188 | diamonds |     6 |         |         |        4
+ 189 | diamonds |     7 |         |         |        4
+ 190 | diamonds |     8 |         |         |        4
+ 191 | diamonds |     9 |         |         |        4
+ 192 | diamonds |    10 |         |         |        4
+ 193 | diamonds |    11 |         |         |        4
+ 194 | diamonds |    12 |         |         |        4
+ 195 | diamonds |    13 |         |         |        4
+ 196 | spades   |     1 |         |         |        4
+ 197 | spades   |     2 |         |         |        4
+ 198 | spades   |     3 |         |         |        4
+ 199 | spades   |     4 |         |         |        4
+ 200 | spades   |     5 |         |         |        4
+ 201 | spades   |     6 |         |         |        4
+ 202 | spades   |     7 |         |         |        4
+ 203 | spades   |     8 |         |         |        4
+ 204 | spades   |     9 |         |         |        4
+ 205 | spades   |    10 |         |         |        4
+ 206 | spades   |    11 |         |         |        4
+ 207 | spades   |    12 |         |         |        4
+ 208 | spades   |    13 |         |         |        4
+ 209 | hearts   |     1 |         |         |        5
+ 210 | hearts   |     2 |         |         |        5
+ 211 | hearts   |     3 |         |         |        5
+ 212 | hearts   |     4 |         |         |        5
+ 213 | hearts   |     5 |         |         |        5
+ 214 | hearts   |     6 |         |         |        5
+ 215 | hearts   |     7 |         |         |        5
+ 216 | hearts   |     8 |         |         |        5
+ 217 | hearts   |     9 |         |         |        5
+ 218 | hearts   |    10 |         |         |        5
+ 219 | hearts   |    11 |         |         |        5
+ 220 | hearts   |    12 |         |         |        5
+ 221 | hearts   |    13 |         |         |        5
+ 222 | clubs    |     1 |         |         |        5
+ 223 | clubs    |     2 |         |         |        5
+ 224 | clubs    |     3 |         |         |        5
+ 225 | clubs    |     4 |         |         |        5
+ 226 | clubs    |     5 |         |         |        5
+ 227 | clubs    |     6 |         |         |        5
+ 228 | clubs    |     7 |         |         |        5
+ 229 | clubs    |     8 |         |         |        5
+ 230 | clubs    |     9 |         |         |        5
+ 231 | clubs    |    10 |         |         |        5
+ 232 | clubs    |    11 |         |         |        5
+ 233 | clubs    |    12 |         |         |        5
+ 234 | clubs    |    13 |         |         |        5
+ 235 | diamonds |     1 |         |         |        5
+ 236 | diamonds |     2 |         |         |        5
+ 237 | diamonds |     3 |         |         |        5
+ 238 | diamonds |     4 |         |         |        5
+ 239 | diamonds |     5 |         |         |        5
+ 240 | diamonds |     6 |         |         |        5
+ 241 | diamonds |     7 |         |         |        5
+ 242 | diamonds |     8 |         |         |        5
+ 243 | diamonds |     9 |         |         |        5
+ 244 | diamonds |    10 |         |         |        5
+ 245 | diamonds |    11 |         |         |        5
+ 246 | diamonds |    12 |         |         |        5
+ 247 | diamonds |    13 |         |         |        5
+ 248 | spades   |     1 |         |         |        5
+ 249 | spades   |     2 |         |         |        5
+ 250 | spades   |     3 |         |         |        5
+ 251 | spades   |     4 |         |         |        5
+ 252 | spades   |     5 |         |         |        5
+ 253 | spades   |     6 |         |         |        5
+ 254 | spades   |     7 |         |         |        5
+ 255 | spades   |     8 |         |         |        5
+ 256 | spades   |     9 |         |         |        5
+ 257 | spades   |    10 |         |         |        5
+ 258 | spades   |    11 |         |         |        5
+ 259 | spades   |    12 |         |         |        5
+ 260 | spades   |    13 |         |         |        5
+   1 | hearts   |     1 |       4 |         |       20
+   2 | hearts   |     2 |       4 |         |       20
+   3 | hearts   |     3 |       4 |         |       20
+   4 | hearts   |     4 |       4 |         |       20
+   5 | hearts   |     5 |       4 |         |       20
+   6 | hearts   |     6 |       4 |         |       20
+   7 | hearts   |     7 |       4 |         |       20
+   8 | hearts   |     8 |       4 |         |       20
+   9 | hearts   |     9 |       4 |         |       20
+  10 | hearts   |    10 |       4 |         |       20
+  11 | hearts   |    11 |       4 |         |       20
+  12 | hearts   |    12 |       4 |         |       20
+  13 | hearts   |    13 |       4 |         |       20
+  53 | hearts   |     1 |       4 |         |       20
+  54 | hearts   |     2 |       4 |         |       20
+  55 | hearts   |     3 |       4 |         |       20
+  56 | hearts   |     4 |       4 |         |       20
+  57 | hearts   |     5 |       4 |         |       20
+  58 | hearts   |     6 |       4 |         |       20
+  59 | hearts   |     7 |       4 |         |       20
+  60 | hearts   |     8 |       4 |         |       20
+  61 | hearts   |     9 |       4 |         |       20
+  62 | hearts   |    10 |       4 |         |       20
+  63 | hearts   |    11 |       4 |         |       20
+  64 | hearts   |    12 |       4 |         |       20
+  65 | hearts   |    13 |       4 |         |       20
+(260 rows)
+
