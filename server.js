@@ -52,6 +52,7 @@ app.use(express.static("public"));
 // Mount all resource routes
 
 // Home page
+<<<<<<< HEAD
 
 let player2_name;
 app.get("/", (req, res) => {
@@ -93,6 +94,34 @@ app.get("/", (req, res) => {
       })
   })
 
+=======
+let player2_name;
+app.get("/", (req, res) => {
+  var cardType = "spades"
+  if(req.session.player === player2_name) {
+    cardType = "diamonds"
+  }
+    knex('cards').select().where({suit: cardType, match_id: 1})
+    .returning('value')
+    .then(function(values){
+      let cards = [];
+      for(let value of values){
+        if(value.suit === cardType){
+          cards.push({value: value.value, suit: value.suit })
+        }
+      }
+      console.log(cards);
+      let imagesArray = [];
+      let temp = "";
+      cards.forEach(function(element){
+        temp = "images/"+element.value+element.suit+".jpg";
+        imagesArray.push(temp);
+      });
+      let templateVars = {data: imagesArray};
+      res.render('goofspiel', templateVars);
+    })
+})
+>>>>>>> 64328c483322d950633aab285ffd6aacf6ca54ac
 app.get("/games/:game_id", (req, res) => {
   knex.from('matches').select('*').where({game_id: req.params.game_id}).where({player2_name: null}).then(matches => {
     let templateVars = {
@@ -102,7 +131,6 @@ app.get("/games/:game_id", (req, res) => {
   });
 });
 
-
 app.post("/games/:matchId", (req, res) => {
   let thisMatchId = 0;
   let strthisMatchId;
@@ -111,13 +139,18 @@ app.post("/games/:matchId", (req, res) => {
   .returning('id')
   .then(function(ids) {
     let newArray = deck().map(function(el){
+<<<<<<< HEAD
       thisMatchId = ids[0];
       strthisMatchId = encodeURIComponent('' + thisMatchId);
       return {...el, match_id: ids[0]}
+=======
+      return {...el, match_id: 1} //ids[0]
+>>>>>>> 64328c483322d950633aab285ffd6aacf6ca54ac
     })
     return knex('cards').insert(newArray);
   })
   .then(function() {
+<<<<<<< HEAD
     console.log(thisMatchId);
     knex('cards').update({hand_id: 2}).where({suit: 'hearts', match_id: thisMatchId})
     .then(function() {
@@ -127,9 +160,16 @@ app.post("/games/:matchId", (req, res) => {
     knex('cards').update({hand_id: 1}).where({suit: 'spades', match_id: thisMatchId})
     .then(function() {
     })
+=======
+    knex('cards').update({hand_id: 3}).where({suit: 'spades', match_id: 1})
+>>>>>>> 64328c483322d950633aab285ffd6aacf6ca54ac
   })
   .then(function(){
+<<<<<<< HEAD
     knex('cards').update({hand_id: 3}).where({suit: 'diamonds', match_id: thisMatchId})
+=======
+    knex('cards').update({hand_id: 4}).where({suit: 'hearts', match_id: 1})
+>>>>>>> 64328c483322d950633aab285ffd6aacf6ca54ac
     .then(function() {
     })
   })
@@ -139,18 +179,20 @@ app.post("/games/:matchId", (req, res) => {
   .catch(function(err){
     console.log(err);
   })
-
-  // create game in DB and save to variable
-
 });
 
 app.post("/match/:matchId/join", (req, res) => {
   let strthisMatchId;
   knex('matches').where({id: req.params.matchId}).update({player2_name: req.session.player})
   .then(function(result) {
+<<<<<<< HEAD
     strthisMatchId = encodeURIComponent('' + req.params.matchId);
     player2_name = req.session.player;
     res.redirect('/?valid=' + strthisMatchId)
+=======
+    player2_name = req.session.player;
+    res.redirect("/")
+>>>>>>> 64328c483322d950633aab285ffd6aacf6ca54ac
   });
 })
 
