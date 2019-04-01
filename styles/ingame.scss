@@ -1,4 +1,3 @@
-
 .body {
   background-image: url("/images/background.jpg");
   background-size: cover;
@@ -6,48 +5,68 @@
   height: 900px;
 }
 
-body h1 {
-  color:black;
-  text-align: center;
+.body h1 {
+  color: darkred;
 }
 
 container {
+  margin-left: 7em;
   position: absolute;
   bottom: 0;
   margin-bottom: 25px;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  width: 99%;
+  width: 90%;
   height: 100px;
 }
 
 #player-score {
 /*  border: 3px solid #D6E0A0;*/
 /*  background-color: #D6E0A0;*/
-  color: white;
-  margin-right: 10px;
+/*  position: absolute;
+  top: 1em;
+  left: 1em;*/
   float: right;
+  margin-right: 1em;
+  font-style: oblique;
+  font-size: 1.5em;
+  background-color: #290304;
+  border: 1.5px solid #241711;
+  border-radius: 10px;
+  opacity: 0.9;
+  padding: 5px;
+  color: white;
+
 
 }
+
 
 #comp-score {
-  border: 3px solid #D6E0A0;
-  background-color: #D6E0A0;
+  float: left;
+  margin-right: 1em;
+  font-style: oblique;
+  font-size: 1.5em;
+  background-color: #290304;
+  border: 1.5px solid #241711;
+  border-radius: 10px;
+  opacity: 0.9;
+  padding: 5px;
   color: white;
-  float: right;
-  margin-right: 10px;
 }
+
+
+body h1 {
+  color:black;
+  text-align: center;
+}
+
 
 div.prize {
   margin: 0 auto;
   display: block;
-  padding: 0px 0px 15px 0px;
+  padding: 10% 0 0 0;
   width: 70px;
-}
-
-body h3 {
-  text-align: center;
 }
 
 img:hover {
@@ -57,35 +76,6 @@ img:hover {
   cursor: pointer;
 }
 
-div.bid-card {
-  display: block;
-  width: 100px;
-  margin: 0 auto;
-}
-
-.cards img:hover {
-/*  -webkit-transform: scale(1.3);
-  -ms-transform: scale(1.3);
-  transform: scale(1.3);*/
-  /*-webkit-transform: rotateZ(-30deg);
-  -ms-transform: rotateZ(-30deg);
-  transform: rotateZ(-30deg);*/
-}
-
-.user_login {
-  width: 400px;
-  height: 70px;
-  margin: auto;
-  padding-left: 30px;
-}
-
-.login_head {
-  padding: 100px;
-}
-
-.highlight {
-  border-style: solid
-}
 
 .roundNum {
   font-size: 20px;
@@ -98,16 +88,32 @@ div.bid-card {
 }
 
 .btn-danger {
-  margin: 20px;
+  margin: 0;
   width: 105.27px;
+  height: 40px;
+  position: absolute;
+  bottom: 17%;
 }
 
 .btn-primary {
-  margin: 20px;
+  margin-right: 2em;
+  width: 105.27px;
+  height: 40px;
+  float: right;
 }
 
 .textInfo {
-  display: inline;
-  font-weight: 700;
-  margin-left: 100px;
+  margin: auto;
+  position: absolute;
+  bottom: 17%;
+  left: 3%;
+  color: darkred;
 }
+
+
+
+
+
+
+
+

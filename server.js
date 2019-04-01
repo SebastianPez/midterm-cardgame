@@ -53,7 +53,7 @@ app.use(express.static("public"));
 
 app.get("/", (req, res) => {
 
-    knex('cards').select().where({match_id: 59})
+    knex('cards').select().where({match_id: 115})
     .returning('value')
     .then(function(values){
       let cards = [];
@@ -61,13 +61,7 @@ app.get("/", (req, res) => {
         if(value.suit === 'spades' || value.suit === 'hearts'){
           cards.push({value: value.value, suit: value.suit })
         }
-      } console.log('THIS IS VALUES', values);
-      let imagesArray = [];
-      let temp = "";
-      cards.forEach(function(element){
-        temp = "images/"+element.value+element.suit+".jpg";
-        imagesArray.push(temp);
-      });
+      }
       let templateVars = {data: cards};
       res.render('goofspiel', templateVars);
     })
@@ -82,16 +76,6 @@ app.get("/games/:game_id", (req, res) => {
     res.render("gfLobby", templateVars);
   });
 });
-
-
-// app.post("/games/:gameId", (req, res) => {
-//   const create = knex('matches')
-//   .insert({player1_name: req.session.player, game_id: req.params.gameId}, 'player1_name')
-//     .then(function(res) {
-//     })
-//     res.redirect("/");
-//   // create game in DB and save to variable
-// });
 
 app.post("/games/:matchId", (req, res) => {
   knex('matches')
@@ -157,12 +141,15 @@ app.post("/login", (req, res) => {
 app.post("/lock", (req, res) => {
   const cardId = req.body.cardId
   knex('rounds').insert(
-    { player1_bid: Number(req.body.cardId) }
+    { player1_bid: 5 }
   )
     .asCallback((err) => {
       if (err) {
         console.log(err);
       }
+    })
+    .then(function(){
+      res.redirect("/")
     })
 })
 

@@ -5,7 +5,7 @@
 
     <link rel="stylesheet" href="/vendor/normalize-4.1.1.css" type="text/css" />
     <link rel="stylesheet" href="/vendor/border-box.css" type="text/css" />
-    <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
+    <link rel="stylesheet" href="/styles/ingame.css" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
@@ -14,10 +14,8 @@
 
   <body class="body">
         <h1>Let's Play GOOFSPIEL</h1>
-        <div class='score-board'>YOUR SCORE: 0</div>
-        <div class='score-board'>OPPONENT'S SCORE: 0</div>
-
-
+        <div class="roundNum"> Round Number: 1</div>
+        <button id='new-game' type="submit" class="btn btn-primary" value="Button">New Game</button>
         <div class="prize">
           <% let hearts = [] %>
             <% for (let i = 0; i < data.length; i ++) { %>
@@ -25,24 +23,23 @@
                 <% hearts.push(data[i]) }}%>
           <% let random = Math.floor(Math.random() * hearts.length)  %>
                 <div>
-                  <img src="images/<%=hearts[random].value + hearts[random].suit%>.jpg" height=100 width=70 />
+                  <img id= 1 src="images/1hearts.jpg" height=100 width=70 />
                 </div>
 
 
 
         </div>
-          <form action="/lock" method="POST">
-          <div class='bid-card'></div>
-          <button id='lock-bid' type="submit" class="btn btn-danger" value="Button">Lock Bid</button> </li>
-        </form>
-        <div id="1"></div>
+          <div class="textInfo">Make Your Bet...</div>
+          <div id="comp-score" class='score-board'> Comp Score: 0 </div>
+          <div id="player-score" class='score-board'> Player Score: 0 </div>
+      <div>
+        <button id='lock-bid' type="submit" class="btn btn-danger" value="Button">Lock Bid</button>
+      </div>
         <container class='cards'>
-
-
           <% data.forEach(function(element){ %>
             <% if (element.suit === 'spades') { %>
                 <div>
-                  <img src="images/<%=element.value + element.suit%>.jpg" height=100 width=70 />
+                  <img class='bidding' id='<%=element.value%>'src="images/<%=element.value + element.suit%>.jpg" height=100 width=70 />
                 </div>
             <% }}) %>
 
